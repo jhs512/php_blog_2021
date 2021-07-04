@@ -15,7 +15,7 @@ class DB__SeqSql
         return $str;
     }
 
-    public function add(string $sqlBit, string $param = null)
+    public function add(string $sqlBit, string $param = null): void
     {
         $this->templateStr .= " " . $sqlBit;
 
@@ -53,7 +53,7 @@ class DB__SeqSql
     }
 }
 
-function DB__secSql()
+function DB__secSql(): DB__SeqSql
 {
     return new DB__SeqSql();
 }
@@ -130,7 +130,7 @@ function DB__getRows(DB__SeqSql $sql): array
     return $rows;
 }
 
-function DB__execute(DB__SeqSql $sql)
+function DB__execute(DB__SeqSql $sql): void
 {
     $stmt = DB__getStmtFromSecSql($sql);
     $stmt->execute();
@@ -144,12 +144,12 @@ function DB__insert(DB__SeqSql $sql): int
     return mysqli_insert_id($dbConn);
 }
 
-function DB__update(DB__SeqSql $sql)
+function DB__update(DB__SeqSql $sql): void
 {
     DB__execute($sql);
 }
 
-function DB__delete($sql)
+function DB__delete($sql): void
 {
     DB__execute($sql);
 }
@@ -172,14 +172,14 @@ function getStrValueOr(&$value, $defaultValue): string
     return $defaultValue;
 }
 
-function jsAlert($msg)
+function jsAlert($msg): void
 {
     echo "<script>";
     echo "alert('${msg}');";
     echo "</script>";
 }
 
-function jsLocationReplaceExit($url, $msg = null)
+function jsLocationReplaceExit($url, $msg = null): void
 {
     if ($msg) {
         jsAlert($msg);
@@ -191,7 +191,7 @@ function jsLocationReplaceExit($url, $msg = null)
     exit;
 }
 
-function jsHistoryBackExit($msg = null)
+function jsHistoryBackExit($msg = null): void
 {
     if ($msg) {
         jsAlert($msg);
@@ -203,7 +203,14 @@ function jsHistoryBackExit($msg = null)
     exit;
 }
 
-function ToastUiEditor__getSafeSource($str) {
+function ToastUiEditor__getSafeSource(string $str): string {
     $str = str_replace('<script', '<t-script>', $str);
     return str_replace('</script>', '</t-script>', $str);
+}
+
+function location302(string $uri): void {
+    //임시로 이동시킬 때
+    header('HTTP/1.1 302 Moved Temporarily');
+    header("Location: {$uri}");
+    exit;
 }
