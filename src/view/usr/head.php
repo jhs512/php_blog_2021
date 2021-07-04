@@ -3,7 +3,7 @@ if (isset($pageTitle) == false) {
     $pageTitle = "";
 }
 
-$application = $this->getApplication();
+$application = $this->application();
 $envCode = $application->getEnvCode();
 $prodSiteDomain = $application->getProdSiteDomain();
 $isLogined = $_REQUEST['App__isLogined'];

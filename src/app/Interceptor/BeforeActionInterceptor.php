@@ -2,16 +2,11 @@
 
 namespace App\Interceptor;
 
-use App\Service\MemberService;
+use App\Container\Container;
 
 class BeforeActionInterceptor extends Interceptor
 {
-    private MemberService $memberService;
-
-    public function __construct()
-    {
-        $this->memberService = MemberService::getInstance();
-    }
+    use Container;
 
     function run(string $action)
     {
@@ -22,7 +17,7 @@ class BeforeActionInterceptor extends Interceptor
         if (isset($_SESSION['loginedMemberId'])) {
             $_REQUEST['App__isLogined'] = true;
             $_REQUEST['App__loginedMemberId'] = intval($_SESSION['loginedMemberId']);
-            $_REQUEST['App__loginedMember'] = $this->memberService->getForPrintMemberById($_REQUEST['App__loginedMemberId']);
+            $_REQUEST['App__loginedMember'] = $this->memberService()->getForPrintMemberById($_REQUEST['App__loginedMemberId']);
         }
     }
 }

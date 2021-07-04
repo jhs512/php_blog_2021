@@ -2,18 +2,12 @@
 
 namespace App\Controller;
 
+use App\Container\Container;
 use App\Controller\Controller;
-use App\Service\ArticleService;
 
 class UsrArticleController extends Controller
 {
-    private ArticleService $articleService;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->articleService = ArticleService::getInstance();
-    }
+    use Container;
 
     public function actionShowWrite()
     {
@@ -38,19 +32,19 @@ class UsrArticleController extends Controller
             jsHistoryBackExit("내용을 입력해주세요.");
         }
 
-        $article = $this->articleService->getForPrintArticleById($id);
+        $article = $this->articleService()->getForPrintArticleById($id);
 
         if ($article == null) {
             jsHistoryBackExit("${id}번 게시물은 존재하지 않습니다.");
         }
 
-        $actorCanModifyRs = $this->articleService->getActorCanModify($_REQUEST['App__loginedMember'], $article);
+        $actorCanModifyRs = $this->articleService()->getActorCanModify($_REQUEST['App__loginedMember'], $article);
 
         if ($actorCanModifyRs->isFail()) {
             jsHistoryBackExit($actorCanModifyRs->getMsg());
         }
 
-        $this->articleService->modifyArticle($id, $title, $body);
+        $this->articleService()->modifyArticle($id, $title, $body);
 
         jsLocationReplaceExit("detail?id=${id}", "${id}번 게시물이 수정되었습니다.");
     }
@@ -63,19 +57,19 @@ class UsrArticleController extends Controller
             jsHistoryBackExit("번호를 입력해주세요.");
         }
 
-        $article = $this->articleService->getForPrintArticleById($id);
+        $article = $this->articleService()->getForPrintArticleById($id);
 
         if ($article == null) {
             jsHistoryBackExit("${id}번 게시물은 존재하지 않습니다.");
         }
 
-        $actorCanDeleteRs = $this->articleService->getActorCanDelete($_REQUEST['App__loginedMember'], $article);
+        $actorCanDeleteRs = $this->articleService()->getActorCanDelete($_REQUEST['App__loginedMember'], $article);
 
         if ($actorCanDeleteRs->isFail()) {
             jsHistoryBackExit($actorCanDeleteRs->getMsg());
         }
 
-        $this->articleService->deleteArticle($id);
+        $this->articleService()->deleteArticle($id);
 
         jsLocationReplaceExit("list", "${id}번 게시물이 삭제되었습니다.");
     }
@@ -93,15 +87,15 @@ class UsrArticleController extends Controller
             jsHistoryBackExit("내용을 입력해주세요.");
         }
 
-        $id = $this->articleService->writeArticle($_REQUEST['App__loginedMemberId'], $title, $body);
+        $id = $this->articleService()->writeArticle($_REQUEST['App__loginedMemberId'], $title, $body);
 
         jsLocationReplaceExit("detail?id=${id}", "${id}번 게시물이 생성되었습니다.");
     }
 
     public function actionShowList()
     {
-        $articles = $this->articleService->getForPrintArticles();
-        $totalCount = $this->articleService->getTotalArticlesCount();
+        $articles = $this->articleService()->getForPrintArticles();
+        $totalCount = $this->articleService()->getTotalArticlesCount();
 
         require_once $this->getViewPath("usr/article/list");
     }
@@ -114,7 +108,7 @@ class UsrArticleController extends Controller
             jsHistoryBackExit("번호를 입력해주세요.");
         }
 
-        $article = $this->articleService->getForPrintArticleById($id);
+        $article = $this->articleService()->getForPrintArticleById($id);
 
         if ($article == null) {
             jsHistoryBackExit("${id}번 게시물은 존재하지 않습니다.");
@@ -131,13 +125,13 @@ class UsrArticleController extends Controller
             jsHistoryBackExit("번호를 입력해주세요.");
         }
 
-        $article = $this->articleService->getForPrintArticleById($id);
+        $article = $this->articleService()->getForPrintArticleById($id);
 
         if ($article == null) {
             jsHistoryBackExit("${id}번 게시물은 존재하지 않습니다.");
         }
 
-        $actorCanModifyRs = $this->articleService->getActorCanModify($_REQUEST['App__loginedMember'], $article);
+        $actorCanModifyRs = $this->articleService()->getActorCanModify($_REQUEST['App__loginedMember'], $article);
 
         if ($actorCanModifyRs->isFail()) {
             jsHistoryBackExit($actorCanModifyRs->getMsg());

@@ -2,8 +2,12 @@
 
 namespace App\Interceptor;
 
+use App\Container\Container;
+
 class NeedLoginInterceptor extends Interceptor
 {
+    use Container;
+    
     function run(string $action)
     {
         switch ($action) {

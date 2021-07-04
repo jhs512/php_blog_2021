@@ -2,57 +2,42 @@
 
 namespace App\Service;
 
+use App\Container\Container;
 use App\Repository\ArticleRepository;
 use App\Vo\ResultData;
 
 class ArticleService
 {
-    private ArticleRepository $articleRepository;
-
-    public static function getInstance(): ArticleService
-    {
-        static $instance;
-
-        if ($instance === null) {
-            $instance = new ArticleService();
-        }
-
-        return $instance;
-    }
-
-    private function __construct()
-    {
-        $this->articleRepository = ArticleRepository::getInstance();
-    }
+    use Container;
 
     public function getTotalArticlesCount(): int
     {
-        return $this->articleRepository->getTotalArticlesCount();
+        return $this->articleRepository()->getTotalArticlesCount();
     }
 
     public function getForPrintArticles(): array
     {
-        return $this->articleRepository->getForPrintArticles();
+        return $this->articleRepository()->getForPrintArticles();
     }
 
     public function getForPrintArticleById(int $id): array|null
     {
-        return $this->articleRepository->getForPrintArticleById($id);
+        return $this->articleRepository()->getForPrintArticleById($id);
     }
 
     public function writeArticle(int $memberId, string $title, string $body): int
     {
-        return $this->articleRepository->writeArticle($memberId, $title, $body);
+        return $this->articleRepository()->writeArticle($memberId, $title, $body);
     }
 
     public function modifyArticle(int $id, string $title, string $body)
     {
-        $this->articleRepository->modifyArticle($id, $title, $body);
+        $this->articleRepository()->modifyArticle($id, $title, $body);
     }
 
     public function deleteArticle(int $id)
     {
-        $this->articleRepository->deleteArticle($id);
+        $this->articleRepository()->deleteArticle($id);
     }
 
     public function getActorCanModify($actor, $article): ResultData

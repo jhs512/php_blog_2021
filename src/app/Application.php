@@ -9,22 +9,6 @@ use App\Interceptor\NeedLogoutInterceptor;
 
 class Application
 {
-    public static function getInstance(): Application
-    {
-        static $instance;
-
-        if ($instance === null) {
-            $instance = new Application();
-        }
-
-        return $instance;
-    }
-
-    private function __construct()
-    {
-
-    }
-
     function getEnvCode(): string
     {
         if ($_SERVER['DOCUMENT_ROOT'] == '/web/2021_04_full/site00/public') {

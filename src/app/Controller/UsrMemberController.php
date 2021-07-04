@@ -2,18 +2,13 @@
 
 namespace App\Controller;
 
+use App\Container\Container;
 use App\Controller\Controller;
 use App\Service\MemberService;
 
 class UsrMemberController extends Controller
 {
-    private MemberService $memberService;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->memberService = MemberService::getInstance();
-    }
+    use Container;
 
     public function actionShowJoin()
     {
@@ -35,7 +30,7 @@ class UsrMemberController extends Controller
     {
         unset($_SESSION['loginedMemberId']);
 
-        $this->memberService->secession($_REQUEST['App__loginedMemberId']);
+        $this->memberService()->secession($_REQUEST['App__loginedMemberId']);
 
         jsLocationReplaceExit("../article/list", "회원탈퇴가 완료되었습니다.");
     }
@@ -57,7 +52,7 @@ class UsrMemberController extends Controller
         $loginId = $_REQUEST['loginId'];
         $loginPw = $_REQUEST['loginPw'];
 
-        $member = $this->memberService->getForPrintMemberByLoginIdAndLoginPw($loginId, $loginPw);
+        $member = $this->memberService()->getForPrintMemberByLoginIdAndLoginPw($loginId, $loginPw);
 
         if (empty($member)) {
             jsHistoryBackExit("일치하는 회원이 존재하지 않습니다.");

@@ -4,21 +4,6 @@ namespace App\Repository;
 
 class ArticleRepository
 {
-    public static function getInstance(): ArticleRepository
-    {
-        static $instance;
-
-        if ($instance === null) {
-            $instance = new ArticleRepository();
-        }
-
-        return $instance;
-    }
-
-    private function __construct()
-    {
-    }
-
     public function getTotalArticlesCount(): int
     {
         $sql = DB__secSql();

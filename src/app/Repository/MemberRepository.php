@@ -4,21 +4,6 @@ namespace App\Repository;
 
 class MemberRepository
 {
-    public static function getInstance(): MemberRepository
-    {
-        static $instance;
-
-        if ($instance === null) {
-            $instance = new MemberRepository();
-        }
-
-        return $instance;
-    }
-
-    private function __construct()
-    {
-    }
-
     public function getForPrintMemberByLoginIdAndLoginPw(string $loginId, string $loginPw): array|null
     {
         $sql = DB__secSql();

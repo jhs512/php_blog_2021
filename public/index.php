@@ -5,7 +5,7 @@ namespace App;
 require_once __DIR__ . "/../vendor/autoload.php";
 
 // 어플리케이션
-$application = Application::getInstance();
+$application = Container\Container::application();
 
 date_default_timezone_set('Asia/Seoul');
 session_start();
