@@ -7,9 +7,9 @@ function makeSitemapXml(string $filePath, int $cacheDuration, array $items): boo
         if ( time() - filemtime($filePath) <= $cacheDuration ) {
             return false;
         }
-    }
 
-    unlink($filePath);
+        unlink($filePath);
+    }
 
     $sitemap = new Sitemap($filePath);
 

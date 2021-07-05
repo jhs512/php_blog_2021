@@ -22,7 +22,7 @@ class CommonSitemapController extends Controller
             ];
         }
 
-        $filePath = __DIR__ . '/../../../public/sitemap.xml';
+        $filePath = $this->application()->getTempSitemapFilePath();
         
         $cacheDuration = 60 * 60 * 24 * 3;
         makeSitemapXml($filePath, $cacheDuration, $sitemapItems);

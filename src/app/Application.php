@@ -9,6 +9,26 @@ use App\Interceptor\NeedLogoutInterceptor;
 
 class Application
 {
+    function getTempSitemapFilePath(): string {
+        $envCode = $this->getEnvCode();
+
+        $dir = "";
+
+        if ($envCode == 'dev') {
+            $dir = "C:/temp";
+        } else {
+            $dir = "/tmp";
+        }
+
+        if ( !is_dir($dir) ) {
+            mkdir($dir);
+        }
+
+        $filePath = $dir . "/{$this->getProdSiteDomain()}__sitemap.xml";
+
+        return $filePath;
+    }
+
     function getEnvCode(): string
     {
         if ($_SERVER['DOCUMENT_ROOT'] == '/web/2021_04_full/site00/public') {
