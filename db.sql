@@ -120,3 +120,6 @@ $a = 10;
 val a = 10
 ```
 ';
+
+# 대용량 이미지도 저장가능하도록 수정
+ALTER TABLE article MODIFY COLUMN `body` LONGTEXT NOT NULL;
