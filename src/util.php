@@ -1,4 +1,26 @@
 <?php
+use samdark\sitemap\Sitemap;
+use samdark\sitemap\Index;
+
+function makeSitemapXml(string $filePath, int $cacheDuration, array $items): bool {
+    if ( is_file($filePath) ) {
+        if ( time() - filemtime($filePath) <= $cacheDuration ) {
+            return false;
+        }
+    }
+
+    unlink($filePath);
+
+    $sitemap = new Sitemap($filePath);
+
+    foreach ( $items as $item ) {
+        $sitemap->addItem($item['url'], strtotime($item['updateDate']));
+    }
+
+    $sitemap->write();
+    
+    return true;
+}
 
 class DB__SeqSql
 {

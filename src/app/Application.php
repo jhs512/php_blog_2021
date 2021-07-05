@@ -18,9 +18,17 @@ class Application
         return "dev";
     }
 
-    function getProdSiteDomain()
+    function getProdSiteDomain(): string
     {
         return "bbb.oa.gg";
+    }
+
+    function getProdSiteProtocol(): string {
+        return "https";
+    }
+
+    function getProdSiteBaseUrl() {
+        return $this->getProdSiteProtocol() . "://" . $this->getProdSiteDomain();
     }
 
     public function getDbConnectionByEnv(): \mysqli

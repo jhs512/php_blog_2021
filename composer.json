@@ -16,5 +16,7 @@
       "email": "jangka512@gmail.com"
     }
   ],
-  "require": {}
+  "require": {
+    "samdark/sitemap": "^2.2"
+  }
 }
