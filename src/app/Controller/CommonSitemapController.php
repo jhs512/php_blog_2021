@@ -24,7 +24,7 @@ class CommonSitemapController extends Controller
 
         $filePath = $this->application()->getTempSitemapFilePath();
         
-        $cacheDuration = 60 * 60 * 24 * 3;
+        $cacheDuration = 60 * 60 * 1;
         makeSitemapXml($filePath, $cacheDuration, $sitemapItems);
 
         $renderFilePath = $filePath;
