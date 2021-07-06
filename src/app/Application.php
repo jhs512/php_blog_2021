@@ -75,7 +75,7 @@ class Application
     public function runByRequestUri(string $requestUri)
     {
         if ($requestUri == '/') {
-            jsLocationReplaceExit("/usr/article/list");
+            location302("/usr/article/list");
         }
 
         list($action) = explode('?', $requestUri);
